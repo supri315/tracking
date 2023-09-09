@@ -16,7 +16,7 @@
                       </div>
                     </div>
 			</div>
-			<table id="users" class="table">
+			<table id="transaction" class="table">
 			<thead>
 				<tr>
 					<th>No</th>
@@ -44,7 +44,7 @@ $(function () {
 	fetch_data();
 
     function fetch_data() {
-        $("#users").DataTable({
+        $("#transaction").DataTable({
             language: {
                 searchPlaceholder: "Search...",
                 sEmptyTable: "Tidak ada data yang tersedia pada tabel ini",
@@ -65,10 +65,7 @@ $(function () {
                 },
             },
             paging: true,
-            // responsive: false,
             processing: true,
-            // scrollX: true,
-            // filter: false,
             lengthChange: false,
             initComplete: function (settings, json) {
                 $(".js-datatables").wrap(
@@ -90,7 +87,6 @@ $(function () {
                 { data: "phone_number", name: "phone_number" },
                 { data: "role_name", name: "role_name" },
                 { data: "branch_name", name: "branch_name" },
-            
                 { data: "aksi", name: "aksi" },
             ],
         });
@@ -103,56 +99,7 @@ $(function () {
 
     }
 
-    // $("#kode_satker_tab1").change(function () {
-    //     var kode_satker_tab1 = $("#kode_satker_tab1").val();
-    //     var bulan_tab1 = $("#bulan_tab1").val();
-    //     var tahun_tab1 = $("#tahun_tab1").val();
-
-    //     $("#menu1Table").DataTable().destroy();
-
-    //     fetch_data1(kode_satker_tab1, bulan_tab1, tahun_tab1);
-    // });
-
-    // $("#bulan_tab1").change(function () {
-    //     var kode_satker_tab1 = $("#kode_satker_tab1").val();
-    //     var bulan_tab1 = $("#bulan_tab1").val();
-    //     var tahun_tab1 = $("#tahun_tab1").val();
-
-    //     $("#menu1Table").DataTable().destroy();
-
-    //     fetch_data1(kode_satker_tab1, bulan_tab1, tahun_tab1);
-    // });
-
-    // $("#tahun_tab1").change(function () {
-    //     var kode_satker_tab1 = $("#kode_satker_tab1").val();
-    //     var bulan_tab1 = $("#bulan_tab1").val();
-    //     var tahun_tab1 = $("#tahun_tab1").val();
-
-    //     $("#menu1Table").DataTable().destroy();
-
-    //     fetch_data1(kode_satker_tab1, bulan_tab1, tahun_tab1);
-    // });
-
-    // $("body").on("click", ".modal-deletetab1", function() {
-    //     var judulid = $(this).attr('data-id');
-    //     swal({
-    //         title: "Yakin?",
-    //         text: "kamu akan menghapus data ini ?",
-    //         icon: "warning",
-    //         buttons: true,
-    //         dangerMode: true,
-    //         })
-    //         .then((willDelete) => {
-    //         if (willDelete) {
-    //             window.location = "/panev/pembinaan/pegawai-tidak-diklat/delete/"+judulid+"" 
-    //             swal("Data berhasil dihapus", {
-    //             icon: "success",
-    //             });
-    //         } else {
-    //             swal("Data Tidak Jadi dihapus");
-    //         }
-    //     });
-    // });
+   
 
     
 });

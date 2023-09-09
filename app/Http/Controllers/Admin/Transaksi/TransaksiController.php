@@ -21,7 +21,7 @@ class TransaksiController extends Controller
     public function index()
     {
 
-        return view('admin.user.index');
+        return view('admin.transaction.index');
     }
 
     public function dataIndex(Request $request)
