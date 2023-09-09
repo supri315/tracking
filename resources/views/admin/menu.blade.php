@@ -84,7 +84,7 @@
             <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li> -->
             <!-- Forms -->
 
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Users">Users</div>
@@ -101,6 +101,12 @@
                   </a>
                 </li>
               </ul>
+            </li> -->
+            <li class="menu-item">
+              <a href="{{route('admin.user.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Pengguna</div>
+              </a>
             </li>
             <li class="menu-item">
               <a href="index.html" class="menu-link">
