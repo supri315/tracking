@@ -60,7 +60,7 @@ class LoginController extends Controller
             // }else{
             //     return redirect()->route('home');
             // }
-             return redirect()->route('dashboard');
+             return redirect()->route('admin.user.index');
 
         }else{
             return redirect()->route('login')

@@ -3,12 +3,12 @@
 @section('content')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data User</h4>
+		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Barang Masuk</h4>
         <div class="card">
 			<div class="col-12 mb-5">
                     <div class="card-body">
                       <div class="demo-inline-spacing">
-						<a href ="{{route('admin.user.create')}}"
+						<a href ="{{route('admin.barangmasuk.create')}}"
 							type="button" 
 							class="btn btn-primary" 
 							style="float: right"> Tambah Data
@@ -20,13 +20,16 @@
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Role</th>
-					<th>Branch</th>
-					<th>Aksi</th>
-					
+					<th>No Resi</th>
+					<th>Penerima</th>
+					<th>Total Koli</th>
+					<th>Total Berat</th>
+					<th>Total Volume</th>
+					<th>Tanggal Kirim</th>
+					<th>Cabang Asal</th>
+					<th>Status</th>
+                    <th>Aksi</th>
+
 				</tr>
         	</thead>
 			<tbody>
@@ -73,29 +76,21 @@ $(function () {
                 );
             },
             ajax: {
-                url: "/dashboard/users/data",
-                // data: {
-                //     kode_satker: kode_satker_tab1,
-                //     bulan: bulan_tab1,
-                //     tahun: tahun_tab1,
-                // },
+                url: "/dashboard/barang-masuk/data",
             },
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },
-                { data: "name", name: "name" },
-                { data: "email", name: "email" },
-                { data: "phone_number", name: "phone_number" },
-                { data: "role_name", name: "role_name" },
-                { data: "branch_name", name: "branch_name" },
+                { data: "awb", name: "awb" },
+                { data: "receiver", name: "receiver" },
+                { data: "coli_total", name: "coli_total" },
+                { data: "weight_total", name: "weight_total" },
+                { data: "volume_total", name: "volume_total" },
+                { data: "ship_date", name: "ship_date" },
+                { data: "cabang", name: "cabang" },
+                { data: "source_branch_id", name: "source_branch_id" },
                 { data: "aksi", name: "aksi" },
             ],
         });
-        // $("#menu1Export").on("click", function ()  {
-        //     kode_satker = kode_satker_tab1
-        //     bulan = bulan_tab1
-        //     tahun = tahun_tab1
-        //     location.href = `/panev/pembinaan/pegawai-tidak-diklat/export?kode_satker_tab1=${kode_satker}&bulan_tab1=${bulan}&tahun_tab1=${tahun}`
-        // });
 
     }
 
