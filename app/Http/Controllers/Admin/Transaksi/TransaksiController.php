@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Branch;
 use App\Models\Disctric;
 use App\Models\Transaksi;
+use App\Models\HistoryTransaction;
 use Illuminate\Support\Arr;
 use Auth;
 
@@ -27,6 +28,9 @@ class TransaksiController extends Controller
     public function dataIndex(Request $request)
     {
         $data = Transaksi::getAll()->orderBy('id','DESC')->get();  
+
+        // return $data;
+        // die;
 
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
@@ -68,7 +72,6 @@ class TransaksiController extends Controller
             "shipper_address" => "required",
             "shipper_phone" => "required",
             "kelurahan" => "required",
-            // "kecamatan" => "required",
             "coli_total" => "required",
             "shipping_amount" => "required",
             "discount" => "required",
@@ -85,7 +88,6 @@ class TransaksiController extends Controller
             'shipper_address.required'=>'Alamat Pengirim Harus Diisi',
             'shipper_phone.required'=>'No hp Pengirim Harus Diisi',
             'kelurahan.required'=>'Kelurahan Harus Diisi',
-            // 'kecamatan.required'=>'Kecamatan Harus Diisi',
             'coli_total.required'=>'Total Koli Harus Diisi',
             'shipping_amount.required'=>'Biaya Pengiriman Harus Diisi',
             'discount.required'=>'Diskon Harus Diisi',
@@ -142,8 +144,17 @@ class TransaksiController extends Controller
 
         $result = Transaksi::create($input);
 
+        // store history barang
+        HistoryTransaction::create([
+            "transaction_id" => $result->id,
+            "status_id" => 1, // barang masuk
+            "description" => "Barang sedang berada di cabang {$branch->city_name}",
+            "latitude" => $branch->latitude,
+            "longitude" => $branch->longitude 
+        ]);
+
         if($result){
-            return redirect('/dashboard/users');
+            return redirect('/dashboard/barangmasuk');
         }
     }
 

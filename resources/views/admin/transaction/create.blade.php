@@ -10,7 +10,7 @@
                 <h5 class="mb-0">Tambah Data Barang Masuk</h5>
             </div>
             <div class="card-body">
-                <form action="{{route('admin.barangmasuk.store')}}" method="post">
+                <form action="{{ route('admin.barangmasuk.store') }}" method="post">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Tanggal Pengiriman</label>
@@ -73,15 +73,6 @@
                     <span class="red-text" style="color:red;">{{ $errors->first('phone_receiver') }}</span>
                     @endif
                 </div>
-         
-                <!-- <div class="mb-3">
-                    <label class="form-label" for="basic-default-phone">Kecamatan</label>
-                    <input type="text" name="kecamatan" class="form-control" placeholder="kecamatan" />
-                    @if ($errors->has('kecamatan'))
-                    <span class="red-text" style="color:red;">{{ $errors->first('kecamatan') }}</span>
-                    @endif
-                </div> -->
-
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Kecamatan</label>
                         <select class="form-select" name="disctric_id" id="exampleFormControlSelect1" aria-label="Default select example">
@@ -176,7 +167,6 @@
             shipping_amount.value = "Invalid input";
         }
     }
-
 </script>
 
 @endpush
