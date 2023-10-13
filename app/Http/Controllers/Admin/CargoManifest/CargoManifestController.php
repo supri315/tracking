@@ -27,10 +27,10 @@ class CargoManifestController extends Controller
 
     public function dataIndex(Request $request)
     {
-        $data = CargoManifest::getAll()->orderBy('id','DESC')->get();  
+        $data = CargoManifest::getAll()->orderBy('id','DESC')->groupBy('start_date')->get();  
 
-        return $data;
-        die;
+        // return $data;
+        // die;
 
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
@@ -71,6 +71,43 @@ class CargoManifestController extends Controller
 
     public function store(Request $request)
     {
+        $transaction = Transaksi::getAll()->where('ship_date', $request->start_date)->orderBy('id','DESC')->get();  
+
+        foreach ($transaction as $key => $value) {
+            CargoManifest::insert([
+                'ship_name' => $request->ship_name,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'source_branch_id' => $request->source_branch_id,
+                'destination_source_id' => $request->destination_source_id,
+                'no_docs' => $request->no_docs,
+                'nopol' => $request->nopol,
+                'driver' => $request->driver,
+                'transaction_id' => $value->id,
+            ]);
+
+            // store history 
+            // History::create([
+            //     "transaction_id" => $value->id,
+            //     "goods_entry" => date("Y-m-d"), 
+            //     "status_id" => 2,
+            //     "latitude" => $branch->latitude,
+            //     "longitude" => $branch->longitude 
+            // ]);
+
+            // store history transaction
+            HistoryTransaction::create([
+                "transaction_id" => $value->id,
+                "status_id" => 2, 
+                "latitude" => $branch->latitude,
+                "longitude" => $branch->longitude 
+            ]);
+
+        }
+
+         
+
+        return redirect('/dashboard/cargo-manifest');
         
     }
 }

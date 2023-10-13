@@ -27,11 +27,16 @@ class CargoManifest extends Model
              "cargo_manifest.start_date",
              "cargo_manifest.end_date",
              "cargo_manifest.source_branch_id",
+             \DB::raw("(select name from city where id = (select city_id from branch where id = cargo_manifest.source_branch_id))  as asal"),
+             \DB::raw("(select name from city where id = (select city_id from branch where id = cargo_manifest.destination_source_id))  as tujuan"),
              "cargo_manifest.destination_source_id",
              "cargo_manifest.no_docs",
              "cargo_manifest.nopol",
              "cargo_manifest.driver",
              "cargo_manifest.transaction_id",
+            //  \DB::raw("(select count(id) from )  as tujuan")
+             \DB::raw('count(*) as total_transaction')
+
         ]);
      }
 }

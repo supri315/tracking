@@ -87,7 +87,7 @@ $(function () {
                 { data: "volume_total", name: "volume_total" },
                 { data: "ship_date", name: "ship_date" },
                 { data: "cabang", name: "cabang" },
-                { data: "source_branch_id", name: "source_branch_id" },
+                { data: "status", name: "status" },
                 { data: "aksi", name: "aksi" },
             ],
         });

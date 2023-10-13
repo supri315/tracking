@@ -35,6 +35,7 @@ Route::get('/dashboard/users/edit/{id}', [App\Http\Controllers\Admin\User\IndexC
 Route::get('/dashboard/barang-masuk', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'index'])->middleware('auth')->name('admin.barangmasuk.index');
 Route::get('/dashboard/barang-masuk/data', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'dataIndex'])->middleware('auth')->name('admin.barangmasuk.index.data');
 Route::get('/dashboard/barang-masuk/create', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'create'])->middleware('auth')->name('admin.barangmasuk.create');
+Route::get('/dashboard/barang-masuk/print/{id}', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'print'])->middleware('auth')->name('admin.barangmasuk.print');
 Route::post('/dashboard/barang-masuk/create', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'store'])->middleware('auth')->name('admin.barangmasuk.store');
 Route::get('/dashboard/barang-masuk/edit/{id}', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'edit'])->middleware('auth')->name('admin.barangmasuk.edit');
 
@@ -43,7 +44,7 @@ Route::get('/dashboard/barang-masuk/edit/{id}', [App\Http\Controllers\Admin\Tran
 Route::get('/dashboard/cargo-manifest', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'index'])->middleware('auth')->name('admin.cargomanifest.index');
 Route::get('/dashboard/cargo-manifest/data', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'dataIndex'])->middleware('auth')->name('admin.cargomanifest.index.data');
 Route::get('/dashboard/cargo-manifest/create', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'create'])->middleware('auth')->name('admin.cargomanifest.create');
-Route::post('/dashboard/cargo-manifest/create', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'store'])->middleware('auth')->name('admin.cargomanifest.store');
+Route::post('/dashboard/cargo-manifest/create', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'store'])->middleware('auth')->name('admin.cargomanifest.store');
 // Route::get('/dashboard/barang-masuk/edit/{id}', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'edit'])->middleware('auth')->name('admin.barangmasuk.edit');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

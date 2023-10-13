@@ -14,7 +14,7 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Nama Kapal</label>
-                    <input type="text"  class="form-control" placeholder="nama kapal" value="{{ old('ship_name') }}" />
+                    <input type="text"  name="ship_name" class="form-control" placeholder="nama kapal" value="{{ old('ship_name') }}" />
                     @if ($errors->has('ship_name'))
                     <span class="red-text" style="color:red;">{{ $errors->first('ship_name') }}</span>
                     @endif
@@ -46,7 +46,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-email">Tujuan Pelabuhan</label>
-                        <select class="form-select" name="destination_branch_id" id="exampleFormControlSelect1" aria-label="Default select example">
+                        <select class="form-select" name="destination_source_id" id="exampleFormControlSelect1" aria-label="Default select example">
                           @foreach($branchDestinations as $branch)
                           <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                           @endforeach
@@ -85,19 +85,20 @@
                     <tr>
                         <th>No</th>
                         <th>No Resi</th>
-                        <th>Penerima</th>
-                        <th>Total Koli</th>
-                        <th>Total Berat</th>
-                        <th>Total Volume</th>
-                        <th>Tanggal Kirim</th>
-                        <th>Cabang Asal</th>
-                        <th>Status</th>
+                        <th>Kecamatan</th>
+                        <th>Kelurahan\</th>
+                        <th>Alamat</th>
+                        <th>Nama Penerima</th>
+                        <th>No Hp Penerima</th>
+                        <th>Nama Pengirim</th>
+                        <th>No Hp Pengirim</th>
+                        <th>Jumlah Koli</th>
                     </tr>
                 </thead>
 			<tbody>
 			</tbody>
 			</table>
-                <button type="submit" class="btn btn-primary mt-4">Cek Data</button>
+                <button type="submit" class="btn btn-primary mt-4">Tambah Data</button>
 
             </form>
             </div>
@@ -143,13 +144,14 @@
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },
                 { data: "awb", name: "awb" },
+                { data: "kecamatan", name: "kecamatan" },
+                { data: "kelurahan", name: "kelurahan" },
+                { data: "receiver_address", name: "receiver_address" },
                 { data: "receiver", name: "receiver" },
+                { data: "phone_receiver", name: "phone_receiver" },
+                { data: "shipper", name: "shipper" },
+                { data: "shipper_phone", name: "shipper_phone" },
                 { data: "coli_total", name: "coli_total" },
-                { data: "weight_total", name: "weight_total" },
-                { data: "volume_total", name: "volume_total" },
-                { data: "ship_date", name: "ship_date" },
-                { data: "cabang", name: "cabang" },
-                { data: "source_branch_id", name: "source_branch_id" },
             ],
         });
     });

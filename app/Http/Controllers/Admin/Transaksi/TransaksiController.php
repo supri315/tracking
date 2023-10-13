@@ -12,8 +12,11 @@ use App\Models\Branch;
 use App\Models\Disctric;
 use App\Models\Transaksi;
 use App\Models\HistoryTransaction;
+use App\Models\History;
 use Illuminate\Support\Arr;
 use Auth;
+use PDF;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 
 class TransaksiController extends Controller
@@ -29,9 +32,6 @@ class TransaksiController extends Controller
     {
         $data = Transaksi::getAll()->orderBy('id','DESC')->get();  
 
-        // return $data;
-        // die;
-
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('aksi', function($row){
@@ -42,7 +42,11 @@ class TransaksiController extends Controller
 
                     </a>
                     <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
-                        <i class='bx bxs-trash'></i></a>
+                        <i class='bx bxs-trash'></i>
+                    </a>
+                    <a href='".route('admin.user.index')."'>
+                        <i class='bx bx-printer'></i>
+                    </a>
                 </div>";
             })
             ->rawColumns(['aksi'])
@@ -144,18 +148,25 @@ class TransaksiController extends Controller
 
         $result = Transaksi::create($input);
 
-        // store history barang
-        HistoryTransaction::create([
+        // store history 
+        History::create([
             "transaction_id" => $result->id,
-            "status_id" => 1, // barang masuk
-            "description" => "Barang sedang berada di cabang {$branch->city_name}",
+            "goods_entry" => date("Y-m-d"), 
+            "status_id" => 1,
             "latitude" => $branch->latitude,
             "longitude" => $branch->longitude 
         ]);
 
-        if($result){
-            return redirect('/dashboard/barangmasuk');
-        }
+        // store history transaction
+        HistoryTransaction::create([
+            "transaction_id" => $result->id,
+            "status_id" => 1, 
+            "latitude" => $branch->latitude,
+            "longitude" => $branch->longitude 
+        ]);
+
+         return redirect('/dashboard/barangmasuk');
+        
     }
 
     public function edit($id)
@@ -168,6 +179,30 @@ class TransaksiController extends Controller
         
         return view('admin.user.edit',compact('data','roles','branchs'));
 
+    }
+
+    public function print($id)
+    {
+        $dataTransaction = Transaksi::getAll()->where('id', $id)->first();
+
+        $generator = new BarcodeGeneratorPNG();
+
+        $barcode = base64_encode($generator->getBarcode($dataTransaction->awb, $generator::TYPE_CODE_128));
+
+        $data = [
+            "title" => 'resi barang masuk',
+            "barcode" => $barcode
+        ];
+
+        return view("admin.transaction.print-resi", ["data"=>$data]);
+
+
+        // $pdf = PDF::loadView('admin.transaction.print-resi', $data);
+
+
+
+
+        // return $pdf->download('itsolutionstuff.pdf');
     }
 }
 
