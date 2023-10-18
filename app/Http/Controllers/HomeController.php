@@ -10,14 +10,15 @@ use App\Models\Disctric;
 class HomeController extends Controller
 {
 
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function dashboard()
     {
-        return view('home');
+        return view('dashboard');
     }
 
     public function cekOngkir()

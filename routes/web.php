@@ -29,9 +29,9 @@ Route::get('/logout',function(){
 Route::get('/dashboard/cek-ongkir', [App\Http\Controllers\HomeController::class, 'cekOngkir'])->name('cekongkir');
 Route::get('/dashboard/tracking', [App\Http\Controllers\HomeController::class, 'tracking'])->name('tracking');
 Route::get('/dashboard/tracking/data/{awb}', [App\Http\Controllers\HomeController::class, 'getDataTracking'])->name('tracking.data');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
 //user
-Route::get('/dashboard', [App\Http\Controllers\Admin\IndexController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('/dashboard/users', [App\Http\Controllers\Admin\User\IndexController::class, 'index'])->middleware('auth')->name('admin.user.index');
 Route::get('/dashboard/users/data', [App\Http\Controllers\Admin\User\IndexController::class, 'dataIndex'])->middleware('auth')->name('admin.user.index.data');
 Route::get('/dashboard/users/create', [App\Http\Controllers\Admin\User\IndexController::class, 'create'])->middleware('auth')->name('admin.user.create');
