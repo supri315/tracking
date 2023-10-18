@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HistoryTransaction;
+use App\Models\Disctric;
 
 
 class HomeController extends Controller
@@ -21,7 +22,9 @@ class HomeController extends Controller
 
     public function cekOngkir()
     {
-        return view('cekongkir');
+        $disctrics = Disctric::getAll()->get();
+
+        return view('cekongkir',compact('disctrics'));
     }
 
     public function tracking()

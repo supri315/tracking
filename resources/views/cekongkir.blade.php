@@ -11,6 +11,18 @@
             </div>
             <div class="card-body">
                
+            <div class="mb-3">
+                    <label class="form-label" for="basic-default-email">Kecamatan</label>
+                        <select class="form-select" name="disctric_id" id="exampleFormControlSelect1" aria-label="Default select example">
+                          @foreach($disctrics as $disctric)
+                          <option value="{{ $disctric->id }}">{{ $disctric->name }}</option>
+                          @endforeach
+                        </select>
+                        @if ($errors->has('disctric_id'))
+                        <span class="red-text" style="color:red;">{{ $errors->first('disctric_id') }}</span>
+                        @endif
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Total Koli</label>
                     <input type="text" name="coli_total" class="form-control" placeholder="total koli" />
