@@ -42,7 +42,7 @@
                   <br>
                   <br>
                  
-                  <button class="btn btn-secondary text-center" type="submit">Enter As Public</button>
+                  <a href="{{route('cekongkir')}}" class="btn btn-secondary text-center" type="submit">Enter As Public</a>
                 </div>
               </form>
             </div>

@@ -102,6 +102,8 @@
                 </li>
               </ul>
             </li> -->
+
+            @auth
             @if(Auth::user()->role_id == 1)
             <li class="menu-item">
               <a href="{{route('admin.user.index')}}" class="menu-link">
@@ -132,6 +134,7 @@
               </a>
             </li>
             @endif
+          
             @if(Auth::user()->role_id == 2)
             <li class="menu-item">
               <a href="{{route('admin.daftarkiriman.index')}}" class="menu-link">
@@ -140,6 +143,25 @@
               </a>
             </li>
             @endif
+
+            @endauth
+
+            <li class="menu-item">
+              <a href="{{route('cekongkir')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Cek Ongkir</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="{{route('tracking')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Tracking</div>
+              </a>
+            </li>
+
+
+
             <!-- Tables -->
             <!-- <li class="menu-item active">
               <a href="tables-basic.html" class="menu-link">

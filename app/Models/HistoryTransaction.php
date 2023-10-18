@@ -28,4 +28,23 @@ class HistoryTransaction extends Model
              "history_transaction.longitude",
         ]);
      }
+
+    public function scopeGetTracking($query) {
+        return $query
+        ->select([
+             "history_transaction.id",
+             "history_transaction.transaction_id",
+             "history_transaction.courier",
+             "history_transaction.status_id",
+             "history_transaction.description",
+             "history_transaction.latitude",
+             "history_transaction.longitude",
+             "transaction.awb",
+             "transaction.receiver",
+             "status.name",
+             "history_transaction.created_at",
+        ])
+        ->join('transaction', 'transaction.id','=','history_transaction.transaction_id')
+        ->join('status', 'status.id','=','history_transaction.status_id');
+     }
 }

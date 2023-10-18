@@ -26,6 +26,10 @@ Route::get('/logout',function(){
     return redirect('/');
 })->name('logout');
 // halaman admin
+Route::get('/dashboard/cek-ongkir', [App\Http\Controllers\HomeController::class, 'cekOngkir'])->name('cekongkir');
+Route::get('/dashboard/tracking', [App\Http\Controllers\HomeController::class, 'tracking'])->name('tracking');
+Route::get('/dashboard/tracking/data/{awb}', [App\Http\Controllers\HomeController::class, 'getDataTracking'])->name('tracking.data');
+
 //user
 Route::get('/dashboard', [App\Http\Controllers\Admin\IndexController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('/dashboard/users', [App\Http\Controllers\Admin\User\IndexController::class, 'index'])->middleware('auth')->name('admin.user.index');
@@ -59,3 +63,5 @@ Route::post('/dashboard/daftar-kiriman/create', [App\Http\Controllers\Admin\List
 Route::get('/dashboard/cargo-manifest/getdatatransaction/{date}', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'getDataTransaction'])->middleware('auth')->name('admin.cargomanifest.datatrasaction');
 Route::get('/dashboard/cargo-manifest/print', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'print'])->middleware('auth')->name('admin.cargomanifest.print');
 Route::get('/dashboard/daftar-kiriman/print', [App\Http\Controllers\Admin\CargoManifest\ListSubmissionController::class, 'print'])->middleware('auth')->name('admin.daftarkiriman.print');
+
+
