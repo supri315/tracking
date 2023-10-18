@@ -16,7 +16,7 @@
                       </div>
                     </div>
 			</div>
-			<table id="transaction" class="table">
+			<table id="transactionTable" class="table">
 			<thead>
 				<tr>
 					<th>No</th>
@@ -47,7 +47,7 @@ $(function () {
 	fetch_data();
 
     function fetch_data() {
-        $("#transaction").DataTable({
+        $("#transactionTable").DataTable({
             language: {
                 searchPlaceholder: "Search...",
                 sEmptyTable: "Tidak ada data yang tersedia pada tabel ini",

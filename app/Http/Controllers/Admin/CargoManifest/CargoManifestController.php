@@ -11,8 +11,10 @@ use App\Models\User;
 use App\Models\CargoManifest;
 use App\Models\Transaksi;
 use App\Models\Branch;
+use App\Models\HistoryTransaction;
+use App\Models\History;
 use Auth;
-// use Illuminate\Support\Facades\Hash;
+use PDF;
 use Illuminate\Support\Arr;
 
 
@@ -42,7 +44,11 @@ class CargoManifestController extends Controller
 
                     </a>
                     <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
-                        <i class='bx bxs-trash'></i></a>
+                        <i class='bx bxs-trash'></i>
+                    </a>
+                    <a href='/dashboard/cargo-manifest/print?start_date={$row->start_date}&nopol={$row->nopol}'>
+                        <i class='bx bx-printer'></i>
+                    </a>
                 </div>";
             })
             ->rawColumns(['aksi'])
@@ -73,6 +79,8 @@ class CargoManifestController extends Controller
     {
         $transaction = Transaksi::getAll()->where('ship_date', $request->start_date)->orderBy('id','DESC')->get();  
 
+        $branch = Branch::getAll()->where('branch.id',Auth::user()->branch_id)->first();
+
         foreach ($transaction as $key => $value) {
             CargoManifest::insert([
                 'ship_name' => $request->ship_name,
@@ -86,14 +94,12 @@ class CargoManifestController extends Controller
                 'transaction_id' => $value->id,
             ]);
 
-            // store history 
-            // History::create([
-            //     "transaction_id" => $value->id,
-            //     "goods_entry" => date("Y-m-d"), 
-            //     "status_id" => 2,
-            //     "latitude" => $branch->latitude,
-            //     "longitude" => $branch->longitude 
-            // ]);
+            History::where('transaction_id',$value->id)->update([
+                "goods_entry_port" => date("Y-m-d"), 
+                "status_id" => 3,
+                "latitude" => $branch->latitude,
+                "longitude" => $branch->longitude 
+            ]);
 
             // store history transaction
             HistoryTransaction::create([
@@ -102,12 +108,30 @@ class CargoManifestController extends Controller
                 "latitude" => $branch->latitude,
                 "longitude" => $branch->longitude 
             ]);
+            // store history transaction
+            HistoryTransaction::create([
+                "transaction_id" => $value->id,
+                "status_id" => 3, 
+                "latitude" => $branch->latitude,
+                "longitude" => $branch->longitude 
+            ]);
 
         }
 
-         
-
         return redirect('/dashboard/cargo-manifest');
         
+    }
+
+
+    public function print()
+    {
+ 
+        $data = CargoManifest::getPrint()->where('start_date', \Request::get('start_date'))->where('nopol',\Request::get('nopol'))->get()->toArray(); 
+            
+        return view("admin.cargomanifest.print", ["data"=>$data]);
+
+
+
+
     }
 }

@@ -114,19 +114,26 @@
                 <div data-i18n="Analytics">Barang Masuk</div>
               </a>
             </li>
-            <li class="menu-item">
-              <!-- <a href="{{route('admin.barangmasuk.index')}}" class="menu-link"> -->
+            <!-- <li class="menu-item">
               <a href="" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">history</div>
               </a>
-            </li>
+            </li> -->
             <li class="menu-item">
               <a href="{{route('admin.cargomanifest.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Cargo Manifest</div>
               </a>
             </li>
+            @if(Auth::user()->role_id == 2)
+            <li class="menu-item">
+              <a href="{{route('admin.daftarkiriman.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Daftar Kiriman</div>
+              </a>
+            </li>
+            @endif
             <!-- Tables -->
             <!-- <li class="menu-item active">
               <a href="tables-basic.html" class="menu-link">

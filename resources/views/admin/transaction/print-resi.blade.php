@@ -5,23 +5,15 @@
 <head>
 <style>
 table, th, td {
-  border: 1px solid black;
+  border: 0px solid black;
   border-collapse: collapse;
 }
 </style>
-
-    <title>Laravel 10 Generate PDF Example - ItSolutionStuff.com</title>
-
 </head>
 
 <body>
 
-
-
 <div>
-
-    <h1>Laravel PDF with Barcode Example</h1>
-
     <table style="width:50%">
     <tr>
         <td rowspan ="2">        

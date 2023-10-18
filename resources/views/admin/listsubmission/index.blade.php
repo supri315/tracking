@@ -3,12 +3,12 @@
 @section('content')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Cargo Manifest</h4>
+		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Daftar Kiriman</h4>
         <div class="card">
 			<div class="col-12 mb-5">
                     <div class="card-body">
                       <div class="demo-inline-spacing">
-						<a href ="{{route('admin.cargomanifest.create')}}"
+						<a href ="{{route('admin.daftarkiriman.create')}}"
 							type="button" 
 							class="btn btn-primary" 
 							style="float: right"> Tambah Data
@@ -16,19 +16,14 @@
                       </div>
                     </div>
 			</div>
-			<table id="cargomanifest" class="table">
+			<table id="listsubmission" class="table">
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Nama Kapal</th>
-					<th>Tanggal Keberangkatan</th>
-					<th>Tanggal Kedatangan</th>
-					<th>Asal Pelabuhan</th>
-					<th>Tujuan Pelabuhan</th>
-					<th>Nomor Dokumen</th>
-					<th>No Polisi</th>
-					<th>Nama Supir</th>
+					<th>Tanngal Keberangkatan</th>
+					<th>Nama Kurir</th>
 					<th>Total Transaksi</th>
+					<!-- <th>Total Transaksi</th> -->
                     <th>Aksi</th>
 
 				</tr>
@@ -48,7 +43,7 @@ $(function () {
 	fetch_data();
 
     function fetch_data() {
-        $("#cargomanifest").DataTable({
+        $("#listsubmission").DataTable({
             language: {
                 searchPlaceholder: "Search...",
                 sEmptyTable: "Tidak ada data yang tersedia pada tabel ini",
@@ -77,18 +72,12 @@ $(function () {
                 );
             },
             ajax: {
-                url: "/dashboard/cargo-manifest/data",
+                url: "/dashboard/daftar-kiriman/data",
             },
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },
-                { data: "ship_name", name: "ship_name" },
-                { data: "start_date", name: "start_date" },
-                { data: "end_date", name: "end_date" },
-                { data: "asal", name: "asal" },
-                { data: "tujuan", name: "tujuan" },
-                { data: "no_docs", name: "no_docs" },
-                { data: "nopol", name: "nopol" },
-                { data: "driver", name: "driver" },
+                { data: "ship_date", name: "ship_date" },
+                { data: "name", name: "name" },
                 { data: "total_transaction", name: "total_transaction" },
                 { data: "aksi", name: "aksi" },
             ],

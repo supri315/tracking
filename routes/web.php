@@ -21,7 +21,10 @@ Auth::routes();
 
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'cekLogin'])->name('cekLogin');
-
+Route::get('/logout',function(){
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 // halaman admin
 //user
 Route::get('/dashboard', [App\Http\Controllers\Admin\IndexController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -45,8 +48,14 @@ Route::get('/dashboard/cargo-manifest', [App\Http\Controllers\Admin\CargoManifes
 Route::get('/dashboard/cargo-manifest/data', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'dataIndex'])->middleware('auth')->name('admin.cargomanifest.index.data');
 Route::get('/dashboard/cargo-manifest/create', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'create'])->middleware('auth')->name('admin.cargomanifest.create');
 Route::post('/dashboard/cargo-manifest/create', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'store'])->middleware('auth')->name('admin.cargomanifest.store');
-// Route::get('/dashboard/barang-masuk/edit/{id}', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'edit'])->middleware('auth')->name('admin.barangmasuk.edit');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//cargo manifest
+Route::get('/dashboard/daftar-kiriman', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'index'])->middleware('auth')->name('admin.daftarkiriman.index');
+Route::get('/dashboard/daftar-kiriman/data', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'dataIndex'])->middleware('auth')->name('admin.daftarkiriman.index.data');
+Route::get('/dashboard/daftar-kiriman/create', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'create'])->middleware('auth')->name('admin.daftarkiriman.create');
+Route::post('/dashboard/daftar-kiriman/create', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'store'])->middleware('auth')->name('admin.daftarkiriman.store');
 
 
 Route::get('/dashboard/cargo-manifest/getdatatransaction/{date}', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'getDataTransaction'])->middleware('auth')->name('admin.cargomanifest.datatrasaction');
+Route::get('/dashboard/cargo-manifest/print', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'print'])->middleware('auth')->name('admin.cargomanifest.print');
+Route::get('/dashboard/daftar-kiriman/print', [App\Http\Controllers\Admin\CargoManifest\ListSubmissionController::class, 'print'])->middleware('auth')->name('admin.daftarkiriman.print');

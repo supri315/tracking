@@ -52,15 +52,15 @@ class Transaksi extends Model
              "transaction.shipping_amount",
              "transaction.discount",
              "transaction.total_amount",
+             "transaction.disctric_id",
              "transaction.ship_date",
              "transaction.source_branch_id",
              "transaction.destination_branch_id",
              \DB::raw("(select name from city where id = (select city_id from branch where id = transaction.source_branch_id))  as cabang"),
-             \DB::raw("(select status.name from status where id = (select history_transaction.status_id from history_transaction where transaction_id = transaction.id) )  as status"),
+             \DB::raw("(select status.name from status where id = (select history_transaction.status_id from history_transaction where transaction_id = transaction.id order by id desc limit 1) )  as status"),
         ]);
         // ->join('branch', 'branch.id','=','transaction.branch_id');
      }
 }
 
 
-// \DB::select
