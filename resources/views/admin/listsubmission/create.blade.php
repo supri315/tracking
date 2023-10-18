@@ -7,7 +7,7 @@
         <div class="col-xl">
             <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Tambah Data Cargo Manifest</h5>
+                <h5 class="mb-0">Tambah Data Daftar Kiriman</h5>
             </div>
             <div class="card-body">
                 <form action="{{route('admin.daftarkiriman.store')}}" method="post">

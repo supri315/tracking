@@ -102,30 +102,36 @@
                 </li>
               </ul>
             </li> -->
+            @if(Auth::user()->role_id == 1)
             <li class="menu-item">
               <a href="{{route('admin.user.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Pengguna</div>
               </a>
             </li>
+            @endif
+            @if(Auth::user()->role_id == 1)
             <li class="menu-item">
               <a href="{{route('admin.barangmasuk.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Barang Masuk</div>
               </a>
             </li>
+            @endif
             <!-- <li class="menu-item">
               <a href="" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">history</div>
               </a>
             </li> -->
+            @if(Auth::user()->role_id == 1)
             <li class="menu-item">
               <a href="{{route('admin.cargomanifest.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Cargo Manifest</div>
               </a>
             </li>
+            @endif
             @if(Auth::user()->role_id == 2)
             <li class="menu-item">
               <a href="{{route('admin.daftarkiriman.index')}}" class="menu-link">

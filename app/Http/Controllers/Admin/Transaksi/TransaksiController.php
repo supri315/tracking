@@ -165,7 +165,7 @@ class TransaksiController extends Controller
             "longitude" => $branch->longitude 
         ]);
 
-         return redirect('/dashboard/barangmasuk');
+         return redirect('/dashboard/barang-masuk');
         
     }
 
