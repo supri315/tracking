@@ -13,6 +13,7 @@ use App\Models\Transaksi;
 use App\Models\Branch;
 use App\Models\HistoryTransaction;
 use App\Models\History;
+use App\Models\MasterKapal;
 use Auth;
 use PDF;
 use Illuminate\Support\Arr;
@@ -46,7 +47,7 @@ class CargoManifestController extends Controller
                     <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
                         <i class='bx bxs-trash'></i>
                     </a>
-                    <a href='/dashboard/cargo-manifest/print?start_date={$row->start_date}&nopol={$row->nopol}'>
+                    <a href='/dashboard/cargo-manifest/print?start_date={$row->start_date}&nopol={$row->nopol}' target=_blank>
                         <i class='bx bx-printer'></i>
                     </a>
                 </div>";
@@ -63,7 +64,9 @@ class CargoManifestController extends Controller
 
         $branchSource = Branch::getAll()->where('branch.id','=',Auth::user()->branch_id)->get();
 
-        return view('admin.cargomanifest.create',compact('branchDestinations','branchSource'));
+        $kapals = MasterKapal::getAll()->get();
+
+        return view('admin.cargomanifest.create',compact('branchDestinations','branchSource','kapals'));
     }
 
 
@@ -83,7 +86,8 @@ class CargoManifestController extends Controller
 
         foreach ($transaction as $key => $value) {
             CargoManifest::insert([
-                'ship_name' => $request->ship_name,
+                // 'ship_name' => $request->ship_name,
+                'kapal_id' => $request->kapal_id,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'source_branch_id' => $request->source_branch_id,

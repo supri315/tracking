@@ -31,7 +31,7 @@
 
 <div class="container">
         <div class="row">
-                    <img src="{{url('/assets/img/Kop Surat (kecil).jpg')}}" class="center mb-4" />
+                    <img src="{{url('/assets/img/Kop Surat (kecil).jpg')}}" class="center mt-3 mb-4" />
                 <table class="table table-borderless">
               
                         <tr>

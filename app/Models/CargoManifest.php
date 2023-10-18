@@ -23,7 +23,7 @@ class CargoManifest extends Model
         return $query
         ->select([
              "cargo_manifest.id",
-             "cargo_manifest.ship_name",
+             "cargo_manifest.kapal_id",
              "cargo_manifest.start_date",
              "cargo_manifest.end_date",
              "cargo_manifest.source_branch_id",
@@ -34,7 +34,8 @@ class CargoManifest extends Model
              "cargo_manifest.nopol",
              "cargo_manifest.driver",
              "cargo_manifest.transaction_id",
-             \DB::raw('count(*) as total_transaction')
+             \DB::raw('count(*) as total_transaction'),
+             \DB::raw("(select name from master_kapal where id = cargo_manifest.kapal_id )  as ship_name"),
 
         ]);
      }
@@ -43,7 +44,7 @@ class CargoManifest extends Model
         return $query
         ->select([
              "cargo_manifest.id",
-             "cargo_manifest.ship_name",
+          //    "cargo_manifest.ship_name",
              "cargo_manifest.start_date",
              "cargo_manifest.end_date",
              "cargo_manifest.source_branch_id",
@@ -63,6 +64,8 @@ class CargoManifest extends Model
              "transaction.shipper",
              "transaction.shipper_phone",
              "transaction.coli_total",
+             \DB::raw("(select name from master_kapal where id = cargo_manifest.kapal_id )  as ship_name"),
+
         ])
         ->join('transaction', 'transaction.id','cargo_manifest.transaction_id');
      }

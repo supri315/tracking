@@ -12,13 +12,20 @@
             <div class="card-body">
                 <form action="{{route('admin.cargomanifest.store')}}" method="post">
                 @csrf
+        
+
                 <div class="mb-3">
-                    <label class="form-label" for="basic-default-fullname">Nama Kapal</label>
-                    <input type="text"  name="ship_name" class="form-control" placeholder="nama kapal" value="{{ old('ship_name') }}" />
-                    @if ($errors->has('ship_name'))
-                    <span class="red-text" style="color:red;">{{ $errors->first('ship_name') }}</span>
-                    @endif
+                    <label class="form-label" for="basic-default-email">Asal Pelabuhan</label>
+                        <select class="form-select" name="kapal_id" id="exampleFormControlSelect1" aria-label="Default select example">
+                          @foreach($kapals as $kapal)
+                          <option value="{{ $kapal->id }}">{{ $kapal->name }}</option>
+                          @endforeach
+                        </select>
+                        @if ($errors->has('kapal_id'))
+                        <span class="red-text" style="color:red;">{{ $errors->first('kapal_id') }}</span>
+                        @endif
                 </div>
+
                 <div class="mb-3">
                     <label class="form-label">Tanggal Keberangkatan</label>
                     <input type="date" id="start_date" name="start_date" class="form-control" id="basic-default-company" placeholder="tanggal keberangkatan" />
