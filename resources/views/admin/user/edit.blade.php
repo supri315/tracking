@@ -13,7 +13,7 @@
                 <!-- <small class="text-muted float-end">Default label</small> -->
             </div>
             <div class="card-body">
-                <form action="{{route('admin.user.store')}}" method="post">
+                <form action="{{route('admin.user.update',$data->id)}}" method="post">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-fullname">Nama</label>

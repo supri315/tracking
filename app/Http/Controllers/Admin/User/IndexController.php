@@ -32,7 +32,7 @@ class IndexController extends Controller
             ->addColumn('aksi', function($row){
                 return "
                 <div class='col6'>
-                    <a href='".route('admin.user.index')."'>
+                    <a href='".route('admin.user.edit',$row->id)."'>
                         <i class='bx bx-pencil'></i>
 
                     </a>
@@ -101,6 +101,25 @@ class IndexController extends Controller
         $data = User::getAll()->find($id);
         
         return view('admin.user.edit',compact('data','roles','branchs'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $detail = User::find($id);
+
+        $input = Arr::only($request->all(), [
+            'name',
+            'email',
+            'role_id',
+            'branch_id',
+            'phone_number',
+            // 'password'
+        ]);
+
+        $result = $detail->update($input);
+        if($result){
+            return redirect('/dashboard/users');
+        }
 
     }
 }

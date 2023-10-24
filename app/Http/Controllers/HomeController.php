@@ -42,4 +42,13 @@ class HomeController extends Controller
             ->make(true);
     }
 
+    public function DestinationTracking($awb, Request $request)
+    {
+        $data = HistoryTransaction::getTracking()->where('transaction.awb', $awb)->orderBy('created_at','ASC')->get();  
+        return \Yajra\DataTables\DataTables::of($data)
+            ->addIndexColumn()
+            ->make(true);
+    }
+    
+
 }

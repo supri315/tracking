@@ -43,7 +43,19 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ URL::to('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  />
+  <style>
+    #map {
+      height: 500px;
+	    width:1200px
+    }
+    .leaflet-top.leaflet-right {
+      display: none;
+    }
+  </style>
     <!-- Page CSS -->
 
     <!-- Helpers -->

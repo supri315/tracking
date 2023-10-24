@@ -34,6 +34,21 @@ class History extends Model
              "history.description",
              "history.latitude",
              "history.longitude",
-        ]);
+             "history.courier",
+             "history.transaction_id",
+             "transaction.coli_total",
+             "transaction.weight_total",
+             "transaction.volume_total",
+             "transaction.code",
+             "transaction.awb",
+        ])
+        ->join('transaction','transaction.id','=','history.transaction_id')
+        ->whereNotNull('goods_entry')
+        ->whereNotNull('goods_entry_port')
+        ->whereNotNull('goods_arrive_port')
+        ->whereNotNull('sorting_process_destination')
+        ->whereNotNull('process_send_destination')
+        ->where('status_id',5)
+        ;
      }
 }

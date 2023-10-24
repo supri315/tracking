@@ -37,6 +37,7 @@ Route::get('/dashboard/users/data', [App\Http\Controllers\Admin\User\IndexContro
 Route::get('/dashboard/users/create', [App\Http\Controllers\Admin\User\IndexController::class, 'create'])->middleware('auth')->name('admin.user.create');
 Route::post('/dashboard/users/create', [App\Http\Controllers\Admin\User\IndexController::class, 'store'])->middleware('auth')->name('admin.user.store');
 Route::get('/dashboard/users/edit/{id}', [App\Http\Controllers\Admin\User\IndexController::class, 'edit'])->middleware('auth')->name('admin.user.edit');
+Route::post('/dashboard/users/update/{id}', [App\Http\Controllers\Admin\User\IndexController::class, 'update'])->middleware('auth')->name('admin.user.update');
 
 //transaksi barang masuk
 Route::get('/dashboard/barang-masuk', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'index'])->middleware('auth')->name('admin.barangmasuk.index');
@@ -61,7 +62,16 @@ Route::post('/dashboard/daftar-kiriman/create', [App\Http\Controllers\Admin\List
 
 
 Route::get('/dashboard/cargo-manifest/getdatatransaction/{date}', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'getDataTransaction'])->middleware('auth')->name('admin.cargomanifest.datatrasaction');
+Route::get('/dashboard/daftar-kiriman/getdatatransaction/{date}', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'getDataTransaction'])->middleware('auth')->name('admin.daftarkiriman.datatrasaction');
+
 Route::get('/dashboard/cargo-manifest/print', [App\Http\Controllers\Admin\CargoManifest\CargoManifestController::class, 'print'])->middleware('auth')->name('admin.cargomanifest.print');
-Route::get('/dashboard/daftar-kiriman/print', [App\Http\Controllers\Admin\CargoManifest\ListSubmissionController::class, 'print'])->middleware('auth')->name('admin.daftarkiriman.print');
+Route::get('/dashboard/daftar-kiriman/print', [App\Http\Controllers\Admin\ListSubmission\ListSubmissionController::class, 'print'])->middleware('auth')->name('admin.daftarkiriman.print');
 
 
+//update transaksi selesai
+Route::get('/dashboard/update-kiriman/', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'updateTransactionEnd'])->middleware('auth')->name('admin.updatekiriman');
+Route::post('/dashboard/update-kiriman/', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'updateTransactionAwbEnd'])->middleware('auth')->name('admin.updatekiriman.update');
+
+//history
+Route::get('/dashboard/history', [App\Http\Controllers\Admin\History\HistoryController::class, 'index'])->middleware('auth')->name('admin.history');
+Route::get('/dashboard/history/data', [App\Http\Controllers\Admin\History\HistoryController::class, 'dataIndex'])->middleware('auth')->name('admin.history.data');

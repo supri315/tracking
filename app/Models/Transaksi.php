@@ -61,6 +61,39 @@ class Transaksi extends Model
         ]);
         // ->join('branch', 'branch.id','=','transaction.branch_id');
      }
+
+
+    public function scopeGetTransaction($query) {
+        return $query
+        ->select([
+             "transaction.id",
+             "transaction.awb",
+             "transaction.shipper",
+             "transaction.shipper_address",
+             "transaction.shipper_phone",
+             "transaction.receiver",
+             "transaction.receiver_address",
+             "transaction.kelurahan",
+             "transaction.kecamatan",
+             "transaction.phone_receiver",
+             "transaction.coli_total",
+             "transaction.weight_total",
+             "transaction.volume_total",
+             "transaction.code",
+             "transaction.shipping_amount",
+             "transaction.discount",
+             "transaction.total_amount",
+             "transaction.disctric_id",
+             "transaction.ship_date",
+             "transaction.source_branch_id",
+             "transaction.destination_branch_id",
+             "cargo_manifest.end_date",
+             \DB::raw("(select name from city where id = (select city_id from branch where id = transaction.source_branch_id))  as cabang"),
+            //  \DB::raw("(select end_date from cargo_manifest where id = transaction.id) as end_date"),
+             \DB::raw("(select status.name from status where id = (select history_transaction.status_id from history_transaction where transaction_id = transaction.id order by id desc limit 1) )  as status"),
+        ])
+        ->join('cargo_manifest', 'cargo_manifest.transaction_id','=','transaction.id');
+     }
 }
 
 

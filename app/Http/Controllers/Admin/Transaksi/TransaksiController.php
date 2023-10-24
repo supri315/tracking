@@ -34,23 +34,40 @@ class TransaksiController extends Controller
 
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('aksi', function($row){
-                return "
-                <div class='col6'>
-                    <a href='".route('admin.user.index')."'>
-                        <i class='bx bx-pencil'></i>
+            // ->addColumn('aksi', function($row){
+            //     return "
+            //     <div class='col6'>
+            //         <a href='".route('admin.user.index')."'>
+            //             <i class='bx bx-pencil'></i>
 
-                    </a>
-                    <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
-                        <i class='bx bxs-trash'></i>
-                    </a>
-                    <a href='".route('admin.user.index')."'>
-                        <i class='bx bx-printer'></i>
-                    </a>
-                </div>";
-            })
+            //         </a>
+                   
+            //         <a href='".route('admin.user.index')."'>
+            //             <i class='bx bx-printer'></i>
+            //         </a>
+            //     </div>";
+            // })
             ->rawColumns(['aksi'])
             ->make(true);
+        // return \Yajra\DataTables\DataTables::of($data)
+        //     ->addIndexColumn()
+        //     ->addColumn('aksi', function($row){
+        //         return "
+        //         <div class='col6'>
+        //             <a href='".route('admin.user.index')."'>
+        //                 <i class='bx bx-pencil'></i>
+
+        //             </a>
+        //             // <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
+        //             //     <i class='bx bxs-trash'></i>
+        //             // </a>
+        //             <a href='".route('admin.user.index')."'>
+        //                 <i class='bx bx-printer'></i>
+        //             </a>
+        //         </div>";
+        //     })
+        //     ->rawColumns(['aksi'])
+        //     ->make(true);
     }
 
     
@@ -196,13 +213,33 @@ class TransaksiController extends Controller
 
         return view("admin.transaction.print-resi", ["data"=>$data]);
 
+    }
 
-        // $pdf = PDF::loadView('admin.transaction.print-resi', $data);
+    public function updateTransactionEnd()
+    {
+        return view('admin.transaction.updatekirimanselesai');
+    }
+    
+    public function updateTransactionAwbEnd(Request $request)
+    {
 
+        $transaction = Transaksi::getAll()->where('awb', $request->awb)->first();
 
+        History::where('transaction_id',$transaction->id)->update([
+            "status_id" => 5,
+            "latitude" => $request->latitude,
+            "longitude" => $request->longitude 
+        ]);
 
-
-        // return $pdf->download('itsolutionstuff.pdf');
+        // store history transaction
+        HistoryTransaction::create([
+            "transaction_id" => $transaction->id,
+            "status_id" => 5, 
+            "latitude" => $request->latitude,
+            "longitude" => $request->longitude 
+        ]);
+    
+        return redirect('/dashboard/update-kiriman');
     }
 }
 

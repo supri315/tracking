@@ -8,7 +8,7 @@ class ListSubmissions extends Model
 {
     protected $table = 'list_submissions';
     protected $fillable = [
-        'ship_date',
+        'end_date',
         'user_id',
         'transaction_id',
         'disctric_id'
@@ -18,7 +18,7 @@ class ListSubmissions extends Model
         return $query
         ->select([
              "list_submissions.id",
-             "list_submissions.ship_date",
+             "list_submissions.end_date",
              "list_submissions.user_id",
              "list_submissions.transaction_id",
              "list_submissions.disctric_id",
@@ -33,18 +33,20 @@ class ListSubmissions extends Model
         return $query
         ->select([
             "list_submissions.id",
-            "list_submissions.ship_date",
+            "list_submissions.end_date",
             "list_submissions.user_id",
             "list_submissions.transaction_id",
             "list_submissions.disctric_id",
             "users.name",
             "transaction.receiver",
+            "transaction.awb",
             "transaction.receiver_address",
             "transaction.kelurahan",
-            "transaction.kecamatan",
             "transaction.phone_receiver",
             "transaction.coli_total",
+            "disctric.name as kecamatan",
         ])
+        ->join('disctric', 'disctric.id','=','list_submissions.disctric_id')
         ->join('transaction', 'transaction.id','=','list_submissions.transaction_id')
         ->join('users', 'users.id', '=', 'list_submissions.user_id');
      }

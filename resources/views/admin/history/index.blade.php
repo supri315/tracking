@@ -3,31 +3,25 @@
 @section('content')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Data Barang Masuk</h4>
+		<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> History Barang</h4>
         <div class="card">
-			<div class="col-12 mb-5">
-                    <div class="card-body">
-                      <div class="demo-inline-spacing">
-						<a href ="{{route('admin.barangmasuk.create')}}"
-							type="button" 
-							class="btn btn-primary" 
-							style="float: right"> Tambah Data
-						</a>
-                      </div>
-                    </div>
-			</div>
-			<table id="transactionTable" class="table">
+
+			<table id="historyTables" class="table">
 			<thead>
 				<tr>
 					<th>No</th>
 					<th>No Resi</th>
-					<th>Penerima</th>
-					<th>Total Koli</th>
+					<th>Barang Masuk</th>
+					<th>Barang Masuk Pelabuhan</th>
+					<th>Barang Tiba Pelabuhan</th>
+					<th>Barang Proses Sortir di Tujuan</th>
+					<th>Barang Proses Kirim</th>
+					<th>Nama Kurir Kirim</th>
+					<th>Jumlah Koli</th>
 					<th>Total Berat</th>
 					<th>Total Volume</th>
-					<th>Tanggal Kirim</th>
-					<th>Cabang Asal</th>
-					<th>Status</th>
+					<th>Kode Kiriman</th>
+					<!-- <th>Status</th> -->
                     <!-- <th>Aksi</th> -->
 
 				</tr>
@@ -47,7 +41,7 @@ $(function () {
 	fetch_data();
 
     function fetch_data() {
-        $("#transactionTable").DataTable({
+        $("#historyTables").DataTable({
             language: {
                 searchPlaceholder: "Search...",
                 sEmptyTable: "Tidak ada data yang tersedia pada tabel ini",
@@ -76,18 +70,21 @@ $(function () {
                 );
             },
             ajax: {
-                url: "/dashboard/barang-masuk/data",
+                url: "/dashboard/history/data",
             },
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },
                 { data: "awb", name: "awb" },
-                { data: "receiver", name: "receiver" },
+                { data: "goods_entry", name: "goods_entry" },
+                { data: "goods_entry_port", name: "goods_entry_port" },
+                { data: "goods_arrive_port", name: "goods_arrive_port" },
+                { data: "sorting_process_destination", name: "sorting_process_destination" },
+                { data: "process_send_destination", name: "process_send_destination" },
+                { data: "courier", name: "courier" },
                 { data: "coli_total", name: "coli_total" },
                 { data: "weight_total", name: "weight_total" },
                 { data: "volume_total", name: "volume_total" },
-                { data: "ship_date", name: "ship_date" },
-                { data: "cabang", name: "cabang" },
-                { data: "status", name: "status" },
+                { data: "code", name: "code" },
                 // { data: "aksi", name: "aksi" },
             ],
         });

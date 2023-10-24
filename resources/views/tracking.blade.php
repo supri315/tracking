@@ -34,7 +34,10 @@
 
 
     </div>
+    <div id="map"></div>
+
 </div>
+
 
 @endsection
 
@@ -78,4 +81,45 @@
     });
 
     </script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        // Pastikan perpustakaan telah dimuat sebelum menginisialisasi
+        window.onload = function () {
+        var map = L.map('map').setView([-7.2575, 112.7521], 6); // Koordinat Surabaya
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic3VwcmkzMTUiLCJhIjoiY2szdHQzYmVzMDJ3MjNtbndsNmFoNTl1byJ9.YdVfTKGs_77g-kN1qqGicg', {
+            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11', // Pilihan tipe peta (Anda dapat mengganti ini)
+            accessToken: 'pk.eyJ1Ijoic3VwcmkzMTUiLCJhIjoiY2szdHQzYmVzMDJ3MjNtbndsNmFoNTl1byJ9.YdVfTKGs_77g-kN1qqGicg' // Gantilah dengan kunci API Mapbox Anda
+        }).addTo(map);
+
+        var start = L.latLng(-7.2575, 112.7521); // Koordinat Surabaya
+        var end = L.latLng(-5.1477, 119.4327); // Koordinat Makassar
+
+        // Buat ikon untuk marker start dan end
+        var startIcon = L.icon({
+            iconUrl: 'start-icon.png', // Ganti dengan URL gambar ikon untuk start
+            iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
+        });
+
+        var endIcon = L.icon({
+            iconUrl: 'end-icon.png', // Ganti dengan URL gambar ikon untuk end
+            iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
+        });
+
+        // Tambahkan marker start dan end ke peta dengan ikon yang sesuai
+        L.marker(start, { icon: startIcon }).addTo(map);
+        L.marker(end, { icon: endIcon }).addTo(map);
+
+        L.Routing.control({
+            waypoints: [start, end],
+            routeWhileDragging: true,
+            show: false, // Menghilangkan detail arah perjalanan
+        }).addTo(map);
+        };
+  </script>
 @endpush

@@ -13,14 +13,14 @@
                 <form action="{{route('admin.daftarkiriman.store')}}" method="post">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label">Tanggal Keberangkatan</label>
-                    <input type="date" id="start_date" name="ship_date" class="form-control" id="basic-default-company" placeholder="tanggal keberangkatan" />
-                    @if ($errors->has('ship_date'))
-                    <span class="red-text" style="color:red;">{{ $errors->first('ship_date') }}</span>
+                    <label class="form-label">Tanggal Kedatangan</label>
+                    <input type="date" id="start_date" name="end_date" class="form-control" id="basic-default-company" placeholder="tanggal kedatangan" />
+                    @if ($errors->has('end_date'))
+                    <span class="red-text" style="color:red;">{{ $errors->first('end_date') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="basic-default-email">Supir</label>
+                    <label class="form-label" for="basic-default-email">Kurir</label>
                         <select class="form-select" name="user_id" id="exampleFormControlSelect1" aria-label="Default select example">
                           @foreach($supir as $value)
                           <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -87,7 +87,7 @@
                 );
             },
             ajax: {
-                url: "/dashboard/cargo-manifest/getdatatransaction/" + startDateValue,
+                url: "/dashboard/daftar-kiriman/getdatatransaction/" + startDateValue,
             },
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },

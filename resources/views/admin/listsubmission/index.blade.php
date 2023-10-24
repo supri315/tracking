@@ -20,7 +20,7 @@
 			<thead>
 				<tr>
 					<th>No</th>
-					<th>Tanngal Keberangkatan</th>
+					<th>Tanngal Kedatangan</th>
 					<th>Nama Kurir</th>
 					<th>Total Transaksi</th>
 					<!-- <th>Total Transaksi</th> -->
@@ -76,7 +76,7 @@ $(function () {
             },
             columns: [
                 { data: "DT_RowIndex", name: "DT_RowIndex" },
-                { data: "ship_date", name: "ship_date" },
+                { data: "end_date", name: "end_date" },
                 { data: "name", name: "name" },
                 { data: "total_transaction", name: "total_transaction" },
                 { data: "aksi", name: "aksi" },

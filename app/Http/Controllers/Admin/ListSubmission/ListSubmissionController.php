@@ -13,6 +13,7 @@ use App\Models\Transaksi;
 use App\Models\HistoryTransaction;
 use App\Models\History;
 use App\Models\Branch;
+// use App\Models\User;
 use Auth;
 use PDF;
 use Illuminate\Support\Arr;
@@ -28,14 +29,14 @@ class ListSubmissionController extends Controller
 
     public function dataIndex(Request $request)
     {
-        $data = ListSubmissions::getAll()->orderBy('id','DESC')->groupBy('ship_date')->get();  
+        $data = ListSubmissions::getAll()->orderBy('id','DESC')->groupBy('end_date')->get();  
 
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('aksi', function($row){
                 return "
                 <div class='col6'>
-                    <a href='/dashboard/daftar-kiriman/print?start_date={$row->start_date}&nopol={$row->nopol}'>
+                    <a href='/dashboard/daftar-kiriman/print?end_date={$row->end_date}&nopol={$row->nopol}' target=_blank>
                         <i class='bx bx-printer'></i>
                     </a>
                 </div>";
@@ -54,7 +55,7 @@ class ListSubmissionController extends Controller
 
     public function getDataTransaction($date, Request $request)
     {
-        $data = Transaksi::getAll()->where('ship_date', $date)->orderBy('id','DESC')->get();  
+        $data = Transaksi::getTransaction()->whereDate('end_date', $date)->orderBy('id','DESC')->get();  
         return \Yajra\DataTables\DataTables::of($data)
             ->addIndexColumn()
             ->make(true);
@@ -62,20 +63,24 @@ class ListSubmissionController extends Controller
 
     public function store(Request $request)
     {
-        $transaction = Transaksi::getAll()->where('ship_date', $request->ship_date)->orderBy('id','DESC')->get();  
+        $transaction = Transaksi::getTransaction()->where('end_date', $request->end_date)->orderBy('id','DESC')->get();  
 
         $branch = Branch::getAll()->where('branch.id',Auth::user()->branch_id)->first();
 
+        $kurir = User::where('id', $request->user_id)->first();
+
         foreach ($transaction as $key => $value) {
             ListSubmissions::insert([
-                'ship_date' => $request->ship_date,
+                'end_date' => $request->end_date,
                 'user_id' => $request->user_id,
-                'disctric_id' => $request->disctric_id,
+                'disctric_id' => $value->disctric_id,
                 'transaction_id' => $value->id,
             ]);
 
             History::where('transaction_id',$value->id)->update([
-                "goods_entry_port" => date("Y-m-d"), 
+                "goods_arrive_port" => date("Y-m-d"), 
+                "sorting_process_destination" => date("Y-m-d"), 
+                "process_send_destination" => date("Y-m-d"), 
                 "status_id" => 4,
                 "latitude" => $branch->latitude,
                 "longitude" => $branch->longitude 
@@ -86,7 +91,8 @@ class ListSubmissionController extends Controller
                 "transaction_id" => $value->id,
                 "status_id" => 4, 
                 "latitude" => $branch->latitude,
-                "longitude" => $branch->longitude 
+                "longitude" => $branch->longitude,
+                "courier" => $kurir->name,  
             ]);
 
         }
@@ -99,9 +105,8 @@ class ListSubmissionController extends Controller
     public function print()
     {
  
-        $data = ListSubmissions::getPrint()->where('start_date', \Request::get('start_date'))->where('nopol',\Request::get('nopol'))->get()->toArray(); 
-    
-        
+        $data = ListSubmissions::getPrint()->where('end_date', \Request::get('end_date'))->get()->toArray(); 
+
         return view("admin.listsubmission.print", ["data"=>$data]);
 
     }

@@ -40,13 +40,6 @@ class CargoManifestController extends Controller
             ->addColumn('aksi', function($row){
                 return "
                 <div class='col6'>
-                    <a href='".route('admin.user.index')."'>
-                        <i class='bx bx-pencil'></i>
-
-                    </a>
-                    <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
-                        <i class='bx bxs-trash'></i>
-                    </a>
                     <a href='/dashboard/cargo-manifest/print?start_date={$row->start_date}&nopol={$row->nopol}' target=_blank>
                         <i class='bx bx-printer'></i>
                     </a>
@@ -54,6 +47,25 @@ class CargoManifestController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+        // return \Yajra\DataTables\DataTables::of($data)
+        //     ->addIndexColumn()
+        //     ->addColumn('aksi', function($row){
+        //         return "
+        //         <div class='col6'>
+        //             <a href='".route('admin.user.index')."'>
+        //                 <i class='bx bx-pencil'></i>
+
+        //             </a>
+        //             <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
+        //                 <i class='bx bxs-trash'></i>
+        //             </a>
+        //             <a href='/dashboard/cargo-manifest/print?start_date={$row->start_date}&nopol={$row->nopol}' target=_blank>
+        //                 <i class='bx bx-printer'></i>
+        //             </a>
+        //         </div>";
+        //     })
+        //     ->rawColumns(['aksi'])
+        //     ->make(true);
     }
 
     public function create()
