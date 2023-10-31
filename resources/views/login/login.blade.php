@@ -6,6 +6,9 @@
         <div class="authentication-inner">
           <div class="card">
             <div class="card-body">
+            <div class="text-center">
+        <img src="{{url('/assets/img/logobulat.png')}}"  width="90"/>
+        </div>
               <h4 class="mb-2 d-flex justify-content-center">SILAHKAN LOGIN</h4>
               <form class="mb-3" action="{{route('cekLogin')}}" method="POST">
                 @csrf
