@@ -40,6 +40,11 @@
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="mb-3 text-center">
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                   <br>
