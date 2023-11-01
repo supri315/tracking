@@ -99,6 +99,7 @@ class TransaksiController extends Controller
             "total_amount" => "required",
             "disctric_id" => "required",
             "ship_date" => "required",
+            "description" => "required"
             
         ],[
             'destination_branch_id.required'=>'Tujuan Cabang Harus Diisi',
@@ -115,6 +116,7 @@ class TransaksiController extends Controller
             'total_amount.required'=>'total pembayaran Harus Diisi',
             'disctric_id.required'=>'Kecamatan Harus Diisi',
             'ship_date.required'=>'Tanggal pengiriman Harus Diisi',
+            'description.required'=>'description  Harus Diisi',
         ]);
 
         
@@ -136,6 +138,7 @@ class TransaksiController extends Controller
             "total_amount",
             "disctric_id",
             "ship_date",
+            "description"
         ]);
 
 

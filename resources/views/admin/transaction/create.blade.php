@@ -93,6 +93,16 @@
                     @endif
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="basic-default-phone">Deskripsi</label>
+                    <textarea class="form-control" name="description" rows="3"></textarea>
+
+                    <!-- <textarea rows="5" cols="33"></textarea> -->
+
+                    @if ($errors->has('description'))
+                    <span class="red-text" style="color:red;">{{ $errors->first('description') }}</span>
+                    @endif
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Total Koli</label>
                     <input type="text" name="coli_total" class="form-control" placeholder="total koli" />
                     @if ($errors->has('coli_total'))
