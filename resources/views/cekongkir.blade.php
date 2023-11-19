@@ -25,7 +25,7 @@
 
                 <div class="mb-3">
                     <label class="form-label" for="basic-default-phone">Total Koli</label>
-                    <input type="text" name="coli_total" class="form-control" placeholder="total koli" />
+                    <input type="text" name="coli_total" class="form-control" placeholder="total koli" onkeyup="sumShipping();" id="coli_total"/>
                     @if ($errors->has('coli_total'))
                     <span class="red-text" style="color:red;">{{ $errors->first('coli_total') }}</span>
                     @endif
@@ -78,16 +78,17 @@
     function sumShipping() {
         var weight_total = parseFloat(document.getElementById('weight_total').value);
         var volume_total = parseFloat(document.getElementById('volume_total').value);
+        var coli_total = parseFloat(document.getElementById('coli_total').value);
         var shipping_amount = document.getElementById('shipping_amount');
         var total_amount = document.getElementById('total_amount');
 
         if (!isNaN(weight_total)) {
             var shippingAmountWeight = weight_total * 10000;
-            shipping_amount.value = shippingAmountWeight;
+            shipping_amount.value = shippingAmountWeight * coli_total;
             total_amount.value = shippingAmountWeight
         } else if (!isNaN(volume_total)) {
             var shippingAmountVolume = volume_total * 10000;
-            shipping_amount.value = shippingAmountVolume;
+            shipping_amount.value = shippingAmountWeight * coli_total;
             total_amount.value = shippingAmountVolume
         } else {
             shipping_amount.value = "Invalid input";
