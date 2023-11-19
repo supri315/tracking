@@ -32,21 +32,35 @@ class TransaksiController extends Controller
     {
         $data = Transaksi::getAll()->orderBy('id','DESC')->get();  
 
-        return \Yajra\DataTables\DataTables::of($data)
-            ->addIndexColumn()
-            // ->addColumn('aksi', function($row){
-            //     return "
-            //     <div class='col6'>
-            //         <a href='".route('admin.user.index')."'>
-            //             <i class='bx bx-pencil'></i>
+        // return \Yajra\DataTables\DataTables::of($data)
+        //     ->addIndexColumn()
+        //     // ->addColumn('aksi', function($row){
+        //     //     return "
+        //     //     <div class='col6'>
+        //     //         <a href='".route('admin.user.index')."'>
+        //     //             <i class='bx bx-pencil'></i>
 
-            //         </a>
+        //     //         </a>
                    
-            //         <a href='".route('admin.user.index')."'>
-            //             <i class='bx bx-printer'></i>
-            //         </a>
-            //     </div>";
-            // })
+        //     //         <a href='".route('admin.user.index')."'>
+        //     //             <i class='bx bx-printer'></i>
+        //     //         </a>
+        //     //     </div>";
+        //     // })
+        //     admin.barangmasuk.print
+        //     ->rawColumns(['aksi'])
+        //     ->make(true);
+
+            return \Yajra\DataTables\DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('aksi', function($row){
+                return "
+                <div class='col6'>
+                    <a href='/dashboard/barang-masuk/print/{$row->id}' target=_blank>
+                        <i class='bx bx-printer'></i>
+                    </a>
+                </div>";
+            })
             ->rawColumns(['aksi'])
             ->make(true);
         // return \Yajra\DataTables\DataTables::of($data)
@@ -205,16 +219,7 @@ class TransaksiController extends Controller
     {
         $dataTransaction = Transaksi::getAll()->where('id', $id)->first();
 
-        $generator = new BarcodeGeneratorPNG();
-
-        $barcode = base64_encode($generator->getBarcode($dataTransaction->awb, $generator::TYPE_CODE_128));
-
-        $data = [
-            "title" => 'resi barang masuk',
-            "barcode" => $barcode
-        ];
-
-        return view("admin.transaction.print-resi", ["data"=>$data]);
+        return view("admin.transaction.print-resi",compact('dataTransaction'));
 
     }
 
@@ -227,6 +232,11 @@ class TransaksiController extends Controller
     {
 
         $transaction = Transaksi::getAll()->where('awb', $request->awb)->first();
+
+        if (!$transaction) {
+            return redirect()->route('admin.updatekiriman')
+                ->with('error','Nomor Resi yang anda Masukkan Salah.');    
+        }
 
         History::where('transaction_id',$transaction->id)->update([
             "status_id" => 5,
@@ -242,7 +252,7 @@ class TransaksiController extends Controller
             "longitude" => $request->longitude 
         ]);
     
-        return redirect('/dashboard/update-kiriman');
+        return redirect()->route('admin.updatekiriman')->with('success','No Resi Berhasil di Update'); 
     }
 }
 

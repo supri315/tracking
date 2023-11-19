@@ -14,7 +14,7 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Tanggal Kedatangan</label>
-                    <input type="date" id="start_date" name="end_date" class="form-control" id="basic-default-company" placeholder="tanggal kedatangan" />
+                    <input type="date" id="end_date" name="end_date" class="form-control" id="basic-default-company" placeholder="tanggal kedatangan" />
                     @if ($errors->has('end_date'))
                     <span class="red-text" style="color:red;">{{ $errors->first('end_date') }}</span>
                     @endif
@@ -62,7 +62,7 @@
 
 @push('script')
 <script>
-       var startDateInput = document.getElementById('start_date');
+       var startDateInput = document.getElementById('end_date');
         var startDateValue = "";
         var dataTable = null;
 

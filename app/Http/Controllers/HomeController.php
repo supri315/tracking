@@ -30,16 +30,23 @@ class HomeController extends Controller
 
     public function tracking()
     {
-        
         return view('tracking');
     }
 
-    public function getDataTracking($awb, Request $request)
+    public function getDataTracking(Request $request)
     {
-        $data = HistoryTransaction::getTracking()->where('transaction.awb', $awb)->orderBy('created_at','ASC')->get();  
-        return \Yajra\DataTables\DataTables::of($data)
-            ->addIndexColumn()
-            ->make(true);
+        $cekData = HistoryTransaction::getTracking()->where('transaction.awb', $request->awb)->first();
+       
+        if(!$cekData)
+        {
+            return redirect()->route('tracking')
+                ->with('error','Nomor Resi tidak ditemukan.');
+        }
+        
+        $data = HistoryTransaction::getTracking()->where('transaction.awb', $request->awb)->orderBy('created_at','ASC')->get();  
+
+        return view('tracking', compact('data'));
+
     }
 
     public function DestinationTracking($awb, Request $request)

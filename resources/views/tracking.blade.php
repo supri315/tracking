@@ -9,14 +9,29 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">TRACKING PENGIRIMAN</h5>
             </div>
+            
+            <form action="{{ route('tracking.data') }}" method="post">
+            @csrf
             <div class="card-body">
                 <div class="mb-3">
                     <label class="form-label">Nomor Resi Pengiriman</label>
                     <input type="text" id="awb" name="awb" class="form-control" id="basic-default-company" placeholder="no resi pengiriman" />
                 </div>
-       
-                
-                <table id="tracking" class="table">
+            
+                <button type="submit" class="btn btn-primary">Cari</button>
+
+            </form>
+
+                @if(session('error'))
+                <div class="alert alert-danger mt-2">
+                        {{ session('error') }}
+                 </div>
+                @endif
+
+
+
+            @if(!empty($data))
+                <table id="tracking" class="table mt-4">
                 <thead>
                     <tr>
                         <th>No</th>                      
@@ -26,15 +41,31 @@
                     </tr>
                 </thead>
 			<tbody>
+                @foreach ($data as $key => $value) 
+            <tr>
+                <td scope="row">{{++$key}}</td>
+                <td>{{$value->created_at}}</td>
+                <td>{{$value->awb}}</td>
+                <td>{{$value->name}}</td>
+            </tr>
+            @endforeach
 			</tbody>
 			</table>
+            @endif
             </div>
             </div>
         </div>
 
 
     </div>
+
+
+
+    @if(!empty($data))
+
     <div id="map"></div>
+
+    @endif
 
 </div>
 
@@ -42,45 +73,8 @@
 @endsection
 
 
+
 @push('script')
-<script>
-       var startDateInput = document.getElementById('awb');
-        var startDateValue = "";
-        var dataTable = null;
-
-        startDateInput.addEventListener('input', function () {
-        startDateValue = startDateInput.value;
-
-        // Hancurkan dataTable jika sudah ada
-        if (dataTable !== null) {
-            dataTable.destroy();
-        }
-
-        // Inisialisasi ulang dataTable dengan URL yang baru
-        dataTable = $("#tracking").DataTable({
-            searching: false,
-            paging: false,
-            info: false,
-            processing: false,
-            lengthChange: false,
-            initComplete: function (settings, json) {
-                $(".js-datatables").wrap(
-                    "<div style='overflow:auto; width:100%;position:relative;'></div>"
-                );
-            },
-            ajax: {
-                url: "/dashboard/tracking/data/" + startDateValue,
-            },
-            columns: [
-                { data: "DT_RowIndex", name: "DT_RowIndex" },
-                { data: "created_at", name: "created_at" },
-                { data: "awb", name: "awb" },
-                { data: "name", name: "name" },
-            ],
-        });
-    });
-
-    </script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
@@ -98,22 +92,23 @@
         }).addTo(map);
 
         var start = L.latLng(-7.2575, 112.7521); // Koordinat Surabaya
-        var end = L.latLng(-5.1477, 119.4327); // Koordinat Makassar
+        var end = L.latLng(-7.2575, 112.7521); // Koordinat Surabaya
+        // var end = L.latLng(-5.1477, 119.4327); // Koordinat Makassar
 
-        // Buat ikon untuk marker start dan end
-        var startIcon = L.icon({
-            iconUrl: 'start-icon.png', // Ganti dengan URL gambar ikon untuk start
-            iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
-        });
+        // // Buat ikon untuk marker start dan end
+        // var startIcon = L.icon({
+        //     iconUrl: 'start-icon.png', // Ganti dengan URL gambar ikon untuk start
+        //     iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
+        // });
 
-        var endIcon = L.icon({
-            iconUrl: 'end-icon.png', // Ganti dengan URL gambar ikon untuk end
-            iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
-        });
+        // var endIcon = L.icon({
+        //     iconUrl: 'end-icon.png', // Ganti dengan URL gambar ikon untuk end
+        //     iconSize: [32, 32], // Sesuaikan dengan ukuran ikon
+        // });
 
         // Tambahkan marker start dan end ke peta dengan ikon yang sesuai
-        L.marker(start, { icon: startIcon }).addTo(map);
-        L.marker(end, { icon: endIcon }).addTo(map);
+        // L.marker(start, { icon: startIcon }).addTo(map);
+        // L.marker(end, { icon: endIcon }).addTo(map);
 
         L.Routing.control({
             waypoints: [start, end],

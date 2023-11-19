@@ -69,6 +69,12 @@ class ListSubmissionController extends Controller
 
         $kurir = User::where('id', $request->user_id)->first();
 
+        $this->validate($request, [
+            "end_date" => "required"
+        ],[
+            'end_date.required'=>'Tanggal Kedatangan Harus Diisi'
+        ]);
+
         foreach ($transaction as $key => $value) {
             ListSubmissions::insert([
                 'end_date' => $request->end_date,

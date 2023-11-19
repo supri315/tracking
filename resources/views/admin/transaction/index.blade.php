@@ -28,7 +28,7 @@
 					<th>Tanggal Kirim</th>
 					<th>Cabang Asal</th>
 					<th>Status</th>
-                    <!-- <th>Aksi</th> -->
+                    <th>Aksi</th>
 
 				</tr>
         	</thead>
@@ -88,7 +88,7 @@ $(function () {
                 { data: "ship_date", name: "ship_date" },
                 { data: "cabang", name: "cabang" },
                 { data: "status", name: "status" },
-                // { data: "aksi", name: "aksi" },
+                { data: "aksi", name: "aksi" },
             ],
         });
 

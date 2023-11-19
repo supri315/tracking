@@ -96,6 +96,21 @@ class CargoManifestController extends Controller
 
         $branch = Branch::getAll()->where('branch.id',Auth::user()->branch_id)->first();
 
+        $this->validate($request, [
+            "start_date" => "required",
+            "end_date" => "required",
+            "no_docs" => "required",
+            "nopol" => "required",
+            "driver" => "required"
+        ],[
+            'start_date.required'=>'Tanggal Keberangkatan Harus Diisi',
+            'end_date.required'=>'Tanggal Kedatangan Harus Diisi',
+            'no_docs.required'=>'Nomor Dokumen Harus Diisi',
+            'nopol.required'=>'Nomor Polisi Harus Diisi',
+            'driver.required'=>'Nama Supir Harus Diisi',
+            
+        ]);
+
         foreach ($transaction as $key => $value) {
             CargoManifest::insert([
                 // 'ship_name' => $request->ship_name,

@@ -24,6 +24,17 @@
                 <input type="text" name="longitude" id="longitude" class="form-control" hidden/>
                 <button type="submit" class="btn btn-primary">Update</button>
                 </form>
+                @if(session('error'))
+                <div class="alert alert-danger mt-2">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if(session('success'))
+                <div class="alert alert-success mt-2">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
             </div>
         </div>

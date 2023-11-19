@@ -28,7 +28,7 @@ Route::get('/logout',function(){
 // halaman admin
 Route::get('/dashboard/cek-ongkir', [App\Http\Controllers\HomeController::class, 'cekOngkir'])->name('cekongkir');
 Route::get('/dashboard/tracking', [App\Http\Controllers\HomeController::class, 'tracking'])->name('tracking');
-Route::get('/dashboard/tracking/data/{awb}', [App\Http\Controllers\HomeController::class, 'getDataTracking'])->name('tracking.data');
+Route::post('/dashboard/tracking/data', [App\Http\Controllers\HomeController::class, 'getDataTracking'])->name('tracking.data');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
 
 //user
