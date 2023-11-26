@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\HistoryTransaction;
 use App\Models\Disctric;
+use App\Models\Transaksi;
 
 
 class HomeController extends Controller
@@ -45,7 +46,11 @@ class HomeController extends Controller
         
         $data = HistoryTransaction::getTracking()->where('transaction.awb', $request->awb)->orderBy('created_at','ASC')->get();  
 
-        return view('tracking', compact('data'));
+        $end = Transaksi::where('awb', $request->awb)->first();  
+        
+        $start = HistoryTransaction::getTracking()->where('transaction.awb', $request->awb)->orderBy('created_at','DESC')->first();  
+
+        return view('tracking', compact('data','end','start'));
 
     }
 

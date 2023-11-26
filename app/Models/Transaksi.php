@@ -30,7 +30,9 @@ class Transaksi extends Model
         'ship_date',
         'source_branch_id',
         'destination_branch_id',
-        'disctric_id'
+        'disctric_id',
+        'destination_latitude',
+        'destination_longitude',
     ];
 
     public function scopeGetAll($query) {
@@ -89,6 +91,8 @@ class Transaksi extends Model
              "transaction.ship_date",
              "transaction.source_branch_id",
              "transaction.destination_branch_id",
+             "transaction.destination_latitude",
+             "transaction.destination_longitude",
              "cargo_manifest.end_date",
              \DB::raw("(select name from city where id = (select city_id from branch where id = transaction.source_branch_id))  as cabang"),
             //  \DB::raw("(select end_date from cargo_manifest where id = transaction.id) as end_date"),

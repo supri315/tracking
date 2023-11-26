@@ -158,6 +158,9 @@ class TransaksiController extends Controller
 
         // start generate no resi
         $branch = Branch::getAll()->where('branch.id',Auth::user()->branch_id)->first();
+
+        $district = Disctric::getAll()->where('id',$input['disctric_id'])->first();
+
         
         $kodeAwal = "";
         if ($branch->city_name ==  "surabaya") {
@@ -179,6 +182,10 @@ class TransaksiController extends Controller
         $input['source_branch_id'] = Auth::user()->branch_id;
 
         $input['code'] = "REG";
+
+        $input['destination_latitude'] = $district->latitude;
+
+        $input['destination_longitude'] = $district->longitude;
 
         $result = Transaksi::create($input);
 
