@@ -36,8 +36,10 @@ class IndexController extends Controller
                         <i class='bx bx-pencil'></i>
 
                     </a>
-                    <a href='#' class='btn-link-danger modal-deletetab1' data-id='".$row->id."'>
+                    <a href='".route('admin.user.delete',$row->id)."'>
                         <i class='bx bxs-trash'></i></a>
+
+                    </a>
                 </div>";
             })
             ->rawColumns(['aksi'])
@@ -120,6 +122,16 @@ class IndexController extends Controller
         if($result){
             return redirect('/dashboard/users');
         }
+
+    }
+
+    public function delete($id)
+    {
+        $data = User::find($id);
+        
+        $data->delete();
+
+        return redirect('/dashboard/users');
 
     }
 }

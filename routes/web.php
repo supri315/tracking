@@ -38,6 +38,7 @@ Route::get('/dashboard/users/create', [App\Http\Controllers\Admin\User\IndexCont
 Route::post('/dashboard/users/create', [App\Http\Controllers\Admin\User\IndexController::class, 'store'])->middleware('auth')->name('admin.user.store');
 Route::get('/dashboard/users/edit/{id}', [App\Http\Controllers\Admin\User\IndexController::class, 'edit'])->middleware('auth')->name('admin.user.edit');
 Route::post('/dashboard/users/update/{id}', [App\Http\Controllers\Admin\User\IndexController::class, 'update'])->middleware('auth')->name('admin.user.update');
+Route::get('/dashboard/users/delete/{id}', [App\Http\Controllers\Admin\User\IndexController::class, 'delete'])->middleware('auth')->name('admin.user.delete');
 
 //transaksi barang masuk
 Route::get('/dashboard/barang-masuk', [App\Http\Controllers\Admin\Transaksi\TransaksiController::class, 'index'])->middleware('auth')->name('admin.barangmasuk.index');
